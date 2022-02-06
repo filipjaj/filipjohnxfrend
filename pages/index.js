@@ -2,8 +2,30 @@ import Head from "next/head";
 import Image from "next/image";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import Marquee from "react-fast-marquee";
+import { useDispatch } from "react-redux";
+import { addToCart } from ".././redux/cart.slice";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Home() {
+  const [products, setProducts] = useState(null);
+  useEffect(() => {
+    async function fetchProducts() {
+      const result = await axios(
+        "https://frend-ecom-api.azurewebsites.net/Product"
+      );
+      setProducts(result.data);
+      console.log(result.data);
+    }
+    fetchProducts();
+  }, []);
+
+  const dispatch = useDispatch();
+
+  const CartAdd = (product) => {
+    dispatch(addToCart(product));
+  };
+
   return (
     <div>
       <Head>
@@ -96,15 +118,25 @@ export default function Home() {
             </div>
             <div className=" w-2/5 h-3/5 overflow-visible relative self-center">
               <Image
-                src="/unisex-crew-neck-sweatshirt-white-front-61fe71c779091.png"
+                src={
+                  products
+                    ? products[0].variants[0].image
+                    : "/unisex-crew-neck-sweatshirt-white-front-61fe71c779091.png"
+                }
                 layout="fill"
                 objectFit="cover"
                 alt="man with sweater"
                 className="z-20"
               />
-              <div className=" w-32 h-32 bg-fjblue rounded-full absolute -bottom-10 -right-10 shadow-md z-30 flex content-center justify-center">
-                <MdOutlineShoppingBasket className=" w-20 h-20 self-center " />
-              </div>
+              <button
+                id="CartIcon"
+                className=" w-32 h-32 bg-fjblue rounded-full absolute -bottom-10 -right-10 shadow-md z-30 flex content-center justify-center"
+              >
+                <MdOutlineShoppingBasket
+                  className=" w-20 h-20 self-center hover:text-fjpink-200"
+                  onClick={() => CartAdd(products[0])}
+                />
+              </button>
               <div className=" bg-fjgreen rounded-lg z-10 absolute bottom-0 h-3/4 w-full shadow-lg "></div>
             </div>
           </div>

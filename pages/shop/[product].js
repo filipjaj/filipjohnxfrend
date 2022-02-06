@@ -3,15 +3,12 @@ import axios from "axios";
 import Image from "next/image";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import Head from "next/head";
-
-const Cart = ({ cartItems, setCartItems }) => {
-  console.log(cartItems);
-  return <div></div>;
-};
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cart.slice";
 
 export default function Home({ product }) {
+  const dispatch = useDispatch();
   const [variant, setVariant] = useState(product.variants[0]);
-  const [cartItems, setCartItems] = useState([]);
   console.log(product);
   return (
     <>
@@ -22,7 +19,6 @@ export default function Home({ product }) {
         ></link>
       </Head>
       <div className="w-screen h-full flex content-center justify-center flex-col relative">
-        <Cart cartItems={cartItems} setCartItems={setCartItems} />
         <div className="w-1/12 bg-fjpink-100 h-screen absolute top-0 left-0 z-10"></div>
         <div className="grid content-center justify-center grid-cols-5  z-20">
           <div className="col-span-2 m-10 flex flex-col content-center justify-center">
@@ -68,7 +64,7 @@ export default function Home({ product }) {
             <p className="text-3xl font-light mt-10">{product.price} kr</p>
             <button
               className="text-xl font-medium mt-6 bg-fjblue  w-44  p-3 rounded-lg flex flex-row"
-              onClick={() => setCartItems(cartItems.concat(product))}
+              onClick={() => dispatch(addToCart(product))}
             >
               <MdOutlineShoppingBasket className="w-7 h-7 mr-3" />
               Add to Cart
