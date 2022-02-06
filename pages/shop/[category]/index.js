@@ -2,21 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Head from "next/head";
+import Link from "next/link";
 
-export default function Shop() {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    async function fetchProducts() {
-      const result = await axios(
-        "https://frend-ecom-api.azurewebsites.net/Product"
-      );
-      setProducts(result.data);
-    }
-    fetchProducts();
-  }, []);
-  console.log(products);
+export default function Category({ products, category }) {
   return (
-    <div className="flex content-center justify-center w-screen    bg-fjpink-100 h-full min-h-screen">
+    <div className="flex content-center justify-center w-screen  bg-fjbeige h-full min-h-screen">
       <Head>
         <link
           rel="stylesheet"
@@ -24,7 +14,7 @@ export default function Shop() {
         ></link>
       </Head>
       <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10  bg-white p-20">
-        <h1 className=" font-fancy font-bold text-5xl "> Shop</h1>
+        <h1 className=" font-fancy font-bold text-5xl "> {category.name}</h1>
         {products.map((product) => (
           <div
             key={product.id}
@@ -46,13 +36,42 @@ export default function Shop() {
               {product.price} kr
             </p>
 
-            <button className="text-white bg-black p-2 w-32 rounded-md self-center font-fancy font-normal ">
-              {" "}
-              Kjøp nå!{" "}
-            </button>
+            <Link
+              className="text-white bg-black p-2 w-32 rounded-md self-center font-fancy font-normal "
+              href={`${category.name}/${product.id}`}
+            >
+              <a>Kjøp nå!</a>
+            </Link>
           </div>
         ))}
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const categoryParam = context.params.category;
+
+  const productResult = await axios(
+    `https://frend-ecom-api.azurewebsites.net/Product`
+  );
+  const categoriesResult = await axios(
+    `https://frend-ecom-api.azurewebsites.net/Category`
+  );
+
+  const category = categoriesResult.data.find(
+    (category) => category.name === categoryParam
+  );
+
+  const products = productResult.data.filter((product) =>
+    product.categoryId.includes(category.id)
+  );
+  console.log(products);
+
+  return {
+    props: {
+      products,
+      category,
+    }, // will be passed to the page component as props
+  };
 }

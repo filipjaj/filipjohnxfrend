@@ -50,7 +50,7 @@ export default function Home() {
                 {" "}
                 Største collaben siden YEEZY
               </h2>
-              <p className="">
+              <p className="font-fancy">
                 Parmesan hard cheese caerphilly. Port-salut parmesan melted
                 cheese gouda monterey jack cheese and wine the big cheese
                 camembert de normandie. Cheese and biscuits jarlsberg fondue

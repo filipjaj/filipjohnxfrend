@@ -4,12 +4,22 @@ import Image from "next/image";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/cart.slice";
+import { addToCart } from "../../../redux/cart.slice";
 
-export default function Home({ product }) {
+export default function ProductPage({ product }) {
   const dispatch = useDispatch();
   const [variant, setVariant] = useState(product.variants[0]);
   console.log(product);
+
+  const handleAddToCart = (product) => {
+    let newProduct = {
+      ...product,
+      variants: variant,
+      id: product.id.toString() + variant.id.toString(),
+    };
+    dispatch(addToCart(newProduct));
+  };
+
   return (
     <>
       <Head>
@@ -64,7 +74,7 @@ export default function Home({ product }) {
             <p className="text-3xl font-light mt-10">{product.price} kr</p>
             <button
               className="text-xl font-medium mt-6 bg-fjblue  w-44  p-3 rounded-lg flex flex-row"
-              onClick={() => dispatch(addToCart(product))}
+              onClick={() => handleAddToCart(product)}
             >
               <MdOutlineShoppingBasket className="w-7 h-7 mr-3" />
               Add to Cart
@@ -78,6 +88,7 @@ export default function Home({ product }) {
 
 export async function getServerSideProps(context) {
   const id = context.params.product;
+  console.log(id);
 
   const result = await axios(
     `https://frend-ecom-api.azurewebsites.net/Product/${id}`

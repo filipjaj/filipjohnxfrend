@@ -10,6 +10,7 @@ import {
 const CartPage = () => {
   // Extracting cart state from redux store
   const cart = useSelector((state) => state.cart);
+  console.log(cart);
 
   // Reference to the dispatch function from redux store
   const dispatch = useDispatch();
@@ -22,25 +23,24 @@ const CartPage = () => {
   };
 
   return (
-    <div>
+    <div className="">
       {cart.length === 0 ? (
-        <h1>Your Cart is Empty!</h1>
+        <h1 className="text-6xl font-bold m-auto text-center mt-64">
+          Your Cart is Empty!
+        </h1>
       ) : (
-        <>
-          <div>
-            <div>Image</div>
-            <div>Product</div>
-            <div>Price</div>
-            <div>Quantity</div>
-            <div>Actions</div>
-            <div>Total Price</div>
-          </div>
+        <div className="grid content-center justify-center font-fancy">
+          <h1 className="text-2xl font-bold">Handlekurv</h1>
           {cart.map((item) => (
-            <div key={item}>
+            <div
+              key={item.id}
+              className="flex p-10 flex-col rounded-md shadow-md"
+            >
               <p>{item.name}</p>
               <p>{item.price} kr</p>
               <p>{item.quantity}</p>
-              <div>
+              <p>{item.variants.name}</p>
+              <div className="font-bold text-2xl">
                 <button onClick={() => dispatch(incrementQuantity(item.id))}>
                   +
                 </button>
@@ -51,11 +51,11 @@ const CartPage = () => {
                   x
                 </button>
               </div>
-              <p>$ {item.quantity * item.price}</p>
+              <p>Totalt {item.quantity * item.price} kr</p>
             </div>
           ))}
           <h2>Total sum: {getTotalPrice()} kr</h2>
-        </>
+        </div>
       )}
     </div>
   );
