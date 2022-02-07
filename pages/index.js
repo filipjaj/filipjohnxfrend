@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from ".././redux/cart.slice";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Title from "../components/Title";
 
 export default function Home() {
   const [products, setProducts] = useState(null);
@@ -38,19 +39,17 @@ export default function Home() {
         ></link>
       </Head>
       <div className="w-screen h-full overflow-hidden">
-        <div className="grid content-center justify-center grid-cols-5 ">
-          <div className="flex flex-col col-span-3 content-center justify-center">
-            <div className="w-full h-2/3 content-center justify-center grid">
-              <h1 className=" font-fancy font-bold text-5xl ">
-                Filip John x Frend
-              </h1>
+        <div className="grid content-center justify-center md:grid-cols-5 ">
+          <div className="flex flex-col md:col-span-3 content-center justify-center">
+            <div className="w-full md:h-1/3 h-64 content-center justify-center grid">
+              <Title text="Filip John x Frend" />
             </div>
-            <div className=" p-10 bg-fjpink-200 w-full h-1/3 content-center justify-center grid">
-              <h2 className="font-fancy font-bold text-2xl">
+            <div className=" p-10 bg-fjpink-200 md:w-full w-screen md:h-2/3 min-h-min content-center justify-center grid">
+              <h2 className="font-fancy font-bold text-2xl ">
                 {" "}
                 Største collaben siden YEEZY
               </h2>
-              <p className="font-fancy">
+              <p className="font-fancy ">
                 Parmesan hard cheese caerphilly. Port-salut parmesan melted
                 cheese gouda monterey jack cheese and wine the big cheese
                 camembert de normandie. Cheese and biscuits jarlsberg fondue
@@ -116,7 +115,7 @@ export default function Home() {
                 </Marquee>
               </div>
             </div>
-            <div className=" w-2/5 h-3/5 overflow-visible relative self-center">
+            <div className=" lg:w-2/5 md:w-3/5  w-64 lg:h-3/5 md:h-2/5 h-2/5 overflow-visible relative self-center">
               <Image
                 src={
                   products
@@ -126,7 +125,7 @@ export default function Home() {
                 layout="fill"
                 objectFit="cover"
                 alt="man with sweater"
-                className="z-20"
+                className="z-20 "
               />
               <button
                 id="CartIcon"

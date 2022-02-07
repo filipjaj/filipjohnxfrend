@@ -4,7 +4,7 @@ import Image from "next/image";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../../redux/cart.slice";
+import { addToCart } from "../../redux/cart.slice";
 
 export default function ProductPage({ product }) {
   const dispatch = useDispatch();
