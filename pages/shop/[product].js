@@ -3,16 +3,23 @@ import axios from "axios";
 import Image from "next/image";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import Head from "next/head";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cart.slice";
 
-const Cart = ({ cartItems, setCartItems }) => {
-  console.log(cartItems);
-  return <div></div>;
-};
-
-export default function Home({ product }) {
+export default function ProductPage({ product }) {
+  const dispatch = useDispatch();
   const [variant, setVariant] = useState(product.variants[0]);
-  const [cartItems, setCartItems] = useState([]);
   console.log(product);
+
+  const handleAddToCart = (product) => {
+    let newProduct = {
+      ...product,
+      variants: variant,
+      id: product.id.toString() + variant.id.toString(),
+    };
+    dispatch(addToCart(newProduct));
+  };
+
   return (
     <>
       <Head>
@@ -22,7 +29,6 @@ export default function Home({ product }) {
         ></link>
       </Head>
       <div className="w-screen h-full flex content-center justify-center flex-col relative">
-        <Cart cartItems={cartItems} setCartItems={setCartItems} />
         <div className="w-1/12 bg-fjpink-100 h-screen absolute top-0 left-0 z-10"></div>
         <div className="grid content-center justify-center grid-cols-5  z-20">
           <div className="col-span-2 m-10 flex flex-col content-center justify-center">
@@ -68,7 +74,7 @@ export default function Home({ product }) {
             <p className="text-3xl font-light mt-10">{product.price} kr</p>
             <button
               className="text-xl font-medium mt-6 bg-fjblue  w-44  p-3 rounded-lg flex flex-row"
-              onClick={() => setCartItems(cartItems.concat(product))}
+              onClick={() => handleAddToCart(product)}
             >
               <MdOutlineShoppingBasket className="w-7 h-7 mr-3" />
               Add to Cart
@@ -82,6 +88,7 @@ export default function Home({ product }) {
 
 export async function getServerSideProps(context) {
   const id = context.params.product;
+  console.log(id);
 
   const result = await axios(
     `https://frend-ecom-api.azurewebsites.net/Product/${id}`

@@ -2,8 +2,31 @@ import Head from "next/head";
 import Image from "next/image";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import Marquee from "react-fast-marquee";
+import { useDispatch } from "react-redux";
+import { addToCart } from ".././redux/cart.slice";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Title from "../components/Title";
 
 export default function Home() {
+  const [products, setProducts] = useState(null);
+  useEffect(() => {
+    async function fetchProducts() {
+      const result = await axios(
+        "https://frend-ecom-api.azurewebsites.net/Product"
+      );
+      setProducts(result.data);
+      console.log(result.data);
+    }
+    fetchProducts();
+  }, []);
+
+  const dispatch = useDispatch();
+
+  const CartAdd = (product) => {
+    dispatch(addToCart(product));
+  };
+
   return (
     <div>
       <Head>
@@ -16,19 +39,17 @@ export default function Home() {
         ></link>
       </Head>
       <div className="w-screen h-full overflow-hidden">
-        <div className="grid content-center justify-center grid-cols-5 ">
-          <div className="flex flex-col col-span-3 content-center justify-center">
-            <div className="w-full h-2/3 content-center justify-center grid">
-              <h1 className=" font-fancy font-bold text-5xl ">
-                Filip John x Frend
-              </h1>
+        <div className="grid content-center justify-center md:grid-cols-5 ">
+          <div className="flex flex-col md:col-span-3 content-center justify-center">
+            <div className="w-full md:h-1/3 h-64 content-center justify-center grid">
+              <Title text="Filip John x Frend" />
             </div>
-            <div className=" p-10 bg-fjpink-200 w-full h-1/3 content-center justify-center grid">
-              <h2 className="font-fancy font-bold text-2xl">
+            <div className=" p-10 bg-fjpink-200 md:w-full w-screen md:h-2/3 min-h-min content-center justify-center grid">
+              <h2 className="font-fancy font-bold text-2xl ">
                 {" "}
                 Største collaben siden YEEZY
               </h2>
-              <p className="">
+              <p className="font-fancy ">
                 Parmesan hard cheese caerphilly. Port-salut parmesan melted
                 cheese gouda monterey jack cheese and wine the big cheese
                 camembert de normandie. Cheese and biscuits jarlsberg fondue
@@ -94,17 +115,27 @@ export default function Home() {
                 </Marquee>
               </div>
             </div>
-            <div className=" w-2/5 h-3/5 overflow-visible relative self-center">
+            <div className=" lg:w-2/5 md:w-3/5  w-64 lg:h-3/5 md:h-2/5 h-2/5 overflow-visible relative self-center">
               <Image
-                src="/unisex-crew-neck-sweatshirt-white-front-61fe71c779091.png"
+                src={
+                  products
+                    ? products[0].variants[0].image
+                    : "/unisex-crew-neck-sweatshirt-white-front-61fe71c779091.png"
+                }
                 layout="fill"
                 objectFit="cover"
                 alt="man with sweater"
-                className="z-20"
+                className="z-20 "
               />
-              <div className=" w-32 h-32 bg-fjblue rounded-full absolute -bottom-10 -right-10 shadow-md z-30 flex content-center justify-center">
-                <MdOutlineShoppingBasket className=" w-20 h-20 self-center " />
-              </div>
+              <button
+                id="CartIcon"
+                className=" w-32 h-32 bg-fjblue rounded-full absolute -bottom-10 -right-10 shadow-md z-30 flex content-center justify-center"
+              >
+                <MdOutlineShoppingBasket
+                  className=" w-20 h-20 self-center hover:text-fjpink-200"
+                  onClick={() => CartAdd(products[0])}
+                />
+              </button>
               <div className=" bg-fjgreen rounded-lg z-10 absolute bottom-0 h-3/4 w-full shadow-lg "></div>
             </div>
           </div>
