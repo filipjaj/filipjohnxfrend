@@ -1,6 +1,7 @@
 import Image from "next/image";
 // Importing hooks from react-redux
 import { useSelector, useDispatch } from "react-redux";
+import Title from "../components/Title";
 import {
   incrementQuantity,
   decrementQuantity,
@@ -23,38 +24,55 @@ const CartPage = () => {
   };
 
   return (
-    <div className="">
+    <div className=" mt-20">
       {cart.length === 0 ? (
-        <h1 className="text-6xl font-bold m-auto text-center mt-64">
-          Your Cart is Empty!
-        </h1>
+        <Title
+          text="
+          Handlekurver en tom!
+        "
+        />
       ) : (
-        <div className="grid content-center justify-center font-fancy">
-          <h1 className="text-2xl font-bold">Handlekurv</h1>
+        <div className="grid content-center justify-center font-fancy  gap-5">
+          <Title text="Handlekurv" />
           {cart.map((item) => (
             <div
               key={item.id}
-              className="flex p-10 flex-col rounded-md shadow-md"
+              className="grid  gap-10 h-60  py-10 px-10 grid-flow-col rounded-md shadow-md w-fit relative odd:bg-fjpink-100 even:bg-fjblue text-lg"
             >
-              <p>{item.name}</p>
-              <p>{item.price} kr</p>
-              <p>{item.quantity}</p>
-              <p>{item.variants.name}</p>
-              <div className="font-bold text-2xl">
-                <button onClick={() => dispatch(incrementQuantity(item.id))}>
-                  +
-                </button>
-                <button onClick={() => dispatch(decrementQuantity(item.id))}>
-                  -
-                </button>
-                <button onClick={() => dispatch(removeFromCart(item.id))}>
-                  x
-                </button>
+              <button
+                onClick={() => dispatch(removeFromCart(item.id))}
+                className="absolute top-3 right-3"
+              >
+                x
+              </button>
+
+              <Image
+                src={item.variants.image}
+                alt=""
+                width={130}
+                height={100}
+              />
+
+              <div className="grid  content-center justify-center">
+                <p className="font-bold text-2xl">{item.name}</p>
+                <div className="grid grid-cols-3">
+                  <button onClick={() => dispatch(decrementQuantity(item.id))}>
+                    -
+                  </button>
+                  <p className="text-center">{item.quantity}</p>
+                  <button onClick={() => dispatch(incrementQuantity(item.id))}>
+                    +
+                  </button>
+                </div>
+                <p className="italic">{item.variants.name}</p>
+                <div className="font-bold text-2xl"></div>
+                <p>{item.quantity * item.price} kr</p>
               </div>
-              <p>Totalt {item.quantity * item.price} kr</p>
             </div>
           ))}
-          <h2>Total sum: {getTotalPrice()} kr</h2>
+          <h2 className="text-center text-3xl">
+            Total sum: {getTotalPrice()} kr
+          </h2>
         </div>
       )}
     </div>
