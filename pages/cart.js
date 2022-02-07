@@ -1,4 +1,5 @@
 import Image from "next/image";
+import createCheckOutSession from "../services/createCheckoutSession";
 // Importing hooks from react-redux
 import { useSelector, useDispatch } from "react-redux";
 import Title from "../components/Title";
@@ -79,6 +80,8 @@ const CartPage = () => {
           <h2 className="text-center text-3xl">
             Total sum: {getTotalPrice()} kr
           </h2>
+
+          <button onClick={() => createCheckOutSession(cart)}>Checkout</button>
         </div>
       )}
     </div>
