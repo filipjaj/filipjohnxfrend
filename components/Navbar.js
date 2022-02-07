@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { MdMenu } from "react-icons/md";
 import { MdOutlineCancel } from "react-icons/md";
+import { MdOutlineShoppingBasket } from "react-icons/md";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -29,12 +30,23 @@ const Navbar = () => {
 
   return (
     <nav className="grid grid-cols-6 md:px-8 md:py-7 sticky top-0 left-0 z-50 bg-fjblue shadow-fjbeige  shadow-sm justify-center  w-screen ">
-      <h2 className="font-fancy font-bold text-2xl col-span-5 justify-self-start  px-3 self-center">
-        Filip John x Frend
-      </h2>
+      <Link href="/cart">
+        <div className="col-span-1 self-center justify-self-center flex flex-row content-center justify-center md:hidden">
+          <p className="pl-1 self-end font-bold font-fancy text-lg">
+            {" "}
+            {getItemsCount()}{" "}
+          </p>
+          <MdOutlineShoppingBasket className=" w-10 h-10 z-50  flex md:hidden " />
+        </div>
+      </Link>
+      <Link href="/">
+        <a className="font-fancy font-bold text-2xl col-span-4 md:col-span-5 md:text-left  text-center px-3 md:self-start self-center">
+          Filip John x Frend
+        </a>
+      </Link>
       <MdMenu
         className={
-          "w-20 h-20 z-50  flex md:hidden col-span-1 pr-5 " +
+          "w-16 h-16 z-50  flex md:hidden col-span-1 pr-5 " +
           (!menu ? " flex " : " hidden ")
         }
         onClick={() => setMenu(!menu)}
@@ -53,18 +65,13 @@ const Navbar = () => {
           (menu ? " flex  absolute" : " hidden ")
         }
       >
-        <div className="grid md:flex h-min mt-20 gap-7 content-center md:m-auto  ">
+        <div className="grid md:flex w-max mt-20 gap-6 content-center md:m-auto md:flex-row  ">
           <Link href="/">
             <a className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg">
               Home
             </a>
           </Link>
-          <Link href="/cart">
-            <a className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg">
-              {" "}
-              Cart ({getItemsCount()})
-            </a>
-          </Link>
+
           <div className="relative group">
             <Link href="/shop">
               <a className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg">
@@ -82,6 +89,12 @@ const Navbar = () => {
               ))}
             </div>
           </div>
+          <Link href="/cart">
+            <a className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg">
+              {" "}
+              Cart ({getItemsCount()})
+            </a>
+          </Link>
         </div>
       </div>
     </nav>

@@ -8,30 +8,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Title from "../components/Title";
 
-export default function Home() {
-  const [products, setProducts] = useState(null);
-  useEffect(() => {
-    async function fetchProducts() {
-      const result = await axios(
-        "https://frend-ecom-api.azurewebsites.net/Product"
-      );
-      setProducts(result.data);
-      console.log(result.data);
-    }
-    fetchProducts();
-  }, []);
-
+export default function Home({ products }) {
   const dispatch = useDispatch();
 
   const CartAdd = (product) => {
     dispatch(addToCart(product));
   };
-
   return (
     <div>
       <Head>
         <title>Filip John x Frend</title>
-        <meta name="description" content="Stærste samarbeidet siden YEEZY" />
+        <meta name="description" content="Største samarbeidet siden YEEZY" />
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="stylesheet"
@@ -143,4 +130,19 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export async function getStaticProps(context) {
+  const result = await axios(
+    "https://frend-ecom-api.azurewebsites.net/Product"
+  );
+  console.log(context.params, result.data);
+  const products = result.data;
+
+  return {
+    props: {
+      products,
+    }, // will be passed to the page component as props
+    revalidate: 60,
+  };
 }

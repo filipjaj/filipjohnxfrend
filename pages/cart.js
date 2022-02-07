@@ -24,7 +24,7 @@ const CartPage = () => {
   };
 
   return (
-    <div className=" mt-20">
+    <div className=" mt-20 h-full min-h-screen">
       {cart.length === 0 ? (
         <Title
           text="
@@ -41,7 +41,7 @@ const CartPage = () => {
             >
               <button
                 onClick={() => dispatch(removeFromCart(item.id))}
-                className="absolute top-3 right-3"
+                className="absolute top-3 right-3 font-semibold text-2xl"
               >
                 x
               </button>
@@ -56,11 +56,17 @@ const CartPage = () => {
               <div className="grid  content-center justify-center">
                 <p className="font-bold text-2xl">{item.name}</p>
                 <div className="grid grid-cols-3">
-                  <button onClick={() => dispatch(decrementQuantity(item.id))}>
+                  <button
+                    onClick={() => dispatch(decrementQuantity(item.id))}
+                    className="font-semibold text-2xl"
+                  >
                     -
                   </button>
-                  <p className="text-center">{item.quantity}</p>
-                  <button onClick={() => dispatch(incrementQuantity(item.id))}>
+                  <p className="text-center  text-2xl">{item.quantity}</p>
+                  <button
+                    onClick={() => dispatch(incrementQuantity(item.id))}
+                    className="font-semibold text-2xl"
+                  >
                     +
                   </button>
                 </div>
