@@ -59,7 +59,7 @@ const Navbar = () => {
       />
       <MdOutlineCancel
         className={
-          "w-20 h-20 z-50  flex md:hidden col-span-1 pr-5 " +
+          "w-16 h-16 z-50  flex md:hidden col-span-1 pr-5 " +
           (menu ? " flex " : " hidden ")
         }
         onClick={() => setMenu(!menu)}
@@ -67,7 +67,7 @@ const Navbar = () => {
 
       <div
         className={
-          "md:flex md:flex-row  grid grid-flow-row gap-5 col-span-1 justify-self-end font-fancy font-medium md:static absolute md:h-fit right-0 top-20 h-screen md:bg-transparent bg-fjpink-100 px-10" +
+          "md:flex md:flex-row  grid grid-flow-row gap-5 content-start col-span-1 justify-self-end font-fancy font-medium md:static absolute md:h-fit right-0 top-16 h-screen md:bg-transparent bg-fjpink-100 px-10 overflow-hidden" +
           (menu ? " flex  absolute" : " hidden ")
         }
       >

@@ -13,9 +13,9 @@ function MyApp({ Component, pageProps }) {
           href="https://use.typekit.net/oom6bmf.css"
         ></link>
       </Head>
-      <div className="relative overflow-scroll">
+      <div className="relative ">
         <Navbar />
-        <Component {...pageProps} className="z-40" />
+        <Component {...pageProps} className="z-40 relative" />
       </div>
     </Provider>
   );
