@@ -46,8 +46,8 @@ export default function ProductPage({ id }) {
       <div className="w-screen h-full flex content-center justify-center flex-col relative min-h-screen overflow-hidden">
         <div className="w-1/12 bg-fjpink-100 h-full absolute top-0 left-0 z-10"></div>
         <div className="grid h-full w-screen grid-flow-row  justify-center md:grid-cols-5  z-20">
-          <div className="md:col-span-2 m-20 flex md:flex-col flex-col content-center justify-center">
-            <h1 className=" font-fancy font-bold text-5xl m-10">
+          <div className="md:col-span-2 md:m-20 m-auto flex md:flex-col flex-col content-center justify-center ">
+            <h1 className=" font-fancy font-bold text-5xl md:mb-16 my-6 ">
               {" "}
               {product.name}
             </h1>
@@ -64,6 +64,13 @@ export default function ProductPage({ id }) {
           </div>
 
           <div className="md:col-span-3 grid content-center justify-center md:py-auto py-10 px-20 bg-fjbeige md:min-h-screen h-full ">
+            <button
+              className="text-xl font-medium order-first md:order-last md:mt-6  bg-fjblue justify-self-center md:justify-self-start  w-44  p-3 rounded-lg flex flex-row"
+              onClick={() => handleAddToCart(product)}
+            >
+              <MdOutlineShoppingBasket className="w-7 h-7 mr-3" />
+              Add to Cart
+            </button>
             <div className="grid grid-flow-col gap-10 content-start justify-start my-7">
               <p className="font-fancy text-lg italic font-medium">
                 Varianter:
@@ -87,13 +94,6 @@ export default function ProductPage({ id }) {
             </div>
             <p className="font-fancy text-lg">{product.description}</p>
             <p className="text-3xl font-light mt-10">{product.price} kr</p>
-            <button
-              className="text-xl font-medium mt-6 bg-fjblue justify-self-center md:justify-self-start  w-44  p-3 rounded-lg flex flex-row"
-              onClick={() => handleAddToCart(product)}
-            >
-              <MdOutlineShoppingBasket className="w-7 h-7 mr-3" />
-              Add to Cart
-            </button>
           </div>
         </div>
       </div>
