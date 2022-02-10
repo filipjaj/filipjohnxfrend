@@ -5,10 +5,14 @@ import { MdOutlineShoppingBasket } from "react-icons/md";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cart.slice";
+import { useGetProductByIdQuery } from "../../services/product";
 
-export default function ProductPage({ product }) {
+export default function ProductPage({ id }) {
+  const { data, error, isLoading } = useGetProductByIdQuery(id);
+
+  const product = data;
   const dispatch = useDispatch();
-  const [variant, setVariant] = useState(product.variants[0]);
+  const [variant, setVariant] = useState(null);
   console.log(product);
 
   const handleAddToCart = (product) => {
@@ -19,6 +23,17 @@ export default function ProductPage({ product }) {
     };
     dispatch(addToCart(newProduct));
   };
+  useEffect(() => {
+    if (data) {
+      setVariant(product.variants[0]);
+    }
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <p>Loading....</p>;
+  }
+
+  console.log(variant);
 
   return (
     <>
@@ -90,15 +105,9 @@ export async function getServerSideProps(context) {
   const id = context.params.product;
   console.log(id);
 
-  const result = await axios(
-    `https://frend-ecom-api.azurewebsites.net/Product/${id}`
-  );
-  console.log(context.params, result.data);
-  const product = result.data;
-
   return {
     props: {
-      product,
+      id,
     }, // will be passed to the page component as props
   };
 }

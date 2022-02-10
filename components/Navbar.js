@@ -5,11 +5,17 @@ import axios from "axios";
 import { MdMenu } from "react-icons/md";
 import { MdOutlineCancel } from "react-icons/md";
 import { MdOutlineShoppingBasket } from "react-icons/md";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
   // Selecting cart from global state
   const cart = useSelector((state) => state.cart);
+  const router = useRouter();
+
+  const menuClick = () => {
+    setMenu(false);
+  };
 
   // Getting the count of items
   const getItemsCount = () => {
@@ -67,14 +73,20 @@ const Navbar = () => {
       >
         <div className="grid md:flex w-max mt-20 gap-6 content-center md:m-auto md:flex-row  ">
           <Link href="/">
-            <a className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg">
+            <a
+              className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg"
+              onClick={menuClick}
+            >
               Home
             </a>
           </Link>
 
           <div className="relative group">
             <Link href="/shop">
-              <a className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg">
+              <a
+                className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg"
+                onClick={menuClick}
+              >
                 Shop
               </a>
             </Link>
@@ -84,13 +96,18 @@ const Navbar = () => {
                   href={`/shop/category/${category.name}`}
                   key={category.id}
                 >
-                  <a className=" hover:text-fjpink-200">{category.name}</a>
+                  <a className=" hover:text-fjpink-200" onClick={menuClick}>
+                    {category.name}
+                  </a>
                 </Link>
               ))}
             </div>
           </div>
           <Link href="/cart">
-            <a className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg">
+            <a
+              className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg"
+              onClick={menuClick}
+            >
               {" "}
               Cart ({getItemsCount()})
             </a>
