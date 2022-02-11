@@ -1,14 +1,16 @@
 import Head from "next/head";
 import Image from "next/image";
-import { MdOutlineShoppingBasket } from "react-icons/md";
+import { MdInfoOutline } from "react-icons/md";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addToCart } from ".././redux/cart.slice";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Title from "../components/Title";
+import { useRouter } from "next/router";
 
 export default function Home({ products }) {
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const CartAdd = (product) => {
@@ -29,9 +31,9 @@ export default function Home({ products }) {
         <div className="grid content-center justify-center md:grid-cols-5 ">
           <div className="flex flex-col md:col-span-3 content-center justify-center">
             <div className="w-full md:h-1/3 h-64 content-center justify-center grid">
-              <Title text="Filip John x Frend" />
+              <Title> Filip John x Frend </Title>
             </div>
-            <div className=" p-10 bg-fjpink-200 md:w-full w-screen md:h-2/3 min-h-min content-center justify-center grid">
+            <div className=" p-10 bg-fjpink-100 md:w-full w-screen md:h-2/3 min-h-min content-center justify-center grid">
               <h2 className="font-fancy font-bold text-2xl ">
                 {" "}
                 Største collaben siden YEEZY
@@ -102,6 +104,7 @@ export default function Home({ products }) {
                 </Marquee>
               </div>
             </div>
+
             <div className=" lg:w-2/5 md:w-3/5  w-64 lg:h-3/5 md:h-2/5 h-2/5 overflow-visible relative self-center">
               <Image
                 src={
@@ -111,18 +114,22 @@ export default function Home({ products }) {
                 }
                 layout="fill"
                 objectFit="cover"
-                alt="man with sweater"
+                alt=""
                 className="z-20 "
               />
               <button
                 id="CartIcon"
                 className=" w-32 h-32 bg-fjblue rounded-full absolute -bottom-10 -right-10 shadow-md z-30 flex content-center justify-center"
               >
-                <MdOutlineShoppingBasket
+                <MdInfoOutline
                   className=" w-20 h-20 self-center hover:text-fjpink-200"
-                  onClick={() => CartAdd(products[0])}
+                  onClick={() => router.push(`/shop/${products[0].id}`)}
                 />
               </button>
+              <div className="absolute -top-20 left-0 z-40 text-3xl text-black font-fancy">
+                <h2 className=" font-bold "> {products[0].name}</h2>
+                <h2>{products[0].price} kr</h2>
+              </div>
               <div className=" bg-fjgreen rounded-lg z-10 absolute bottom-0 h-3/4 w-full shadow-lg "></div>
             </div>
           </div>
@@ -136,7 +143,7 @@ export async function getStaticProps(context) {
   const result = await axios(
     "https://frend-ecom-api.azurewebsites.net/Product"
   );
-  console.log(context.params, result.data);
+
   const products = result.data;
 
   return {

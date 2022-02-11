@@ -6,6 +6,7 @@ import { MdMenu } from "react-icons/md";
 import { MdOutlineCancel } from "react-icons/md";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import { useRouter } from "next/router";
+import Loading from "./Loading";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -13,9 +14,12 @@ const Navbar = () => {
   const cart = useSelector((state) => state.cart);
   const router = useRouter();
   const [animate, setAnimate] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const menuClick = () => {
+    setLoading(true);
     setMenu(false);
+    setLoading(false);
   };
 
   const getItemsCount = () => {
@@ -45,7 +49,9 @@ const Navbar = () => {
     setMenu(false);
   }, []);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <nav className="grid grid-cols-6 md:px-8 md:py-7 sticky top-0 left-0 z-50 bg-fjblue shadow-fjbeige  shadow-sm justify-center  w-screen ">
       <Link href="/cart">
         <div className="col-span-1 self-center justify-self-center flex flex-row content-center justify-center md:hidden">
@@ -62,7 +68,7 @@ const Navbar = () => {
         </div>
       </Link>
       <Link href="/">
-        <a className="font-fancy font-bold text-2xl col-span-4 md:col-span-5 md:text-left  text-center px-3 md:self-start self-center">
+        <a className="font-fancy font-bold text-2xl col-span-4 md:col-span-5 md:text-left  text-center px-3 md:self-start self-center"  onClick={menuClick}>
           Filip John x Frend
         </a>
       </Link>

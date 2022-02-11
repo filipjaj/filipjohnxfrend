@@ -9,11 +9,13 @@ import {
   removeFromCart,
 } from "../redux/cart.slice";
 import Button from "../components/Button";
+import { useRouter } from "next/router";
 
 const CartPage = () => {
   // Extracting cart state from redux store
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
+
+  const router = useRouter();
 
   // Reference to the dispatch function from redux store
   const dispatch = useDispatch();
@@ -36,7 +38,8 @@ const CartPage = () => {
             {cart.map((item) => (
               <div
                 key={item.id}
-                className="grid group  gap-10 min-h-60 h-fit  py-10 px-10 grid-flow-col rounded-md shadow-md w-fit relative "
+                className="grid group  gap-10 min-h-60 h-fit  py-10 px-10 grid-flow-col rounded-md shadow-md  w-80 relative "
+                onClick={() => router.push(`/shop/${item.id}`)}
               >
                 <div className="group-even:bg-fjpink-200 group-odd:bg-fjblue w-14 absolute top-0 left-0 h-full"></div>
                 <div className="bg-fjbeige w-7/12 absolute top-0 right-0 h-full z-10"></div>
@@ -46,12 +49,12 @@ const CartPage = () => {
                 >
                   x
                 </button>
-                <div className="w-fit h-fit self-center z-30">
+                <div className=" w-32 h-44 self-center relative overflow-hidden z-30">
                   <Image
                     src={item.variants.image}
                     alt=""
-                    width={152}
-                    height={200}
+                    layout="fill"
+                    objectFit="cover"
                   />
                 </div>
 

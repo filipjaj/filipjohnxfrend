@@ -1,11 +1,10 @@
 import Image from "next/image";
+import Title from "./Title";
 
 export default function Loading() {
   return (
-    <div className=" w-screen h-screen flex content-center justify-center">
-      <div className="animate-spin w-min h-min ">
-        <Image src="/filipxfrend.png" width={100} height={100} />
-      </div>
+    <div className=" w-screen h-screen grid  content-center bg-fjblue justify-center">
+      <Title className="animate-pulse"> Loading...</Title>
     </div>
   );
 }

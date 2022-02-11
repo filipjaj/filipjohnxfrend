@@ -183,7 +183,7 @@ describe("decrement", () => {
 
     deepFreeze(state);
     const newState = cartReducer(state, decrementQuantity(product.id));
-    console.log(newState);
+
     expect(newState.find((p) => p.id === product.id).quantity).toBe(1);
   });
   test("removes object when quantity is 1", () => {
@@ -239,7 +239,7 @@ describe("decrement", () => {
 
     deepFreeze(state);
     const newState = cartReducer(state, decrementQuantity(product.id));
-    console.log(newState);
+
     expect(newState.find((p) => p.id === product.id)).toBeUndefined();
   });
 });

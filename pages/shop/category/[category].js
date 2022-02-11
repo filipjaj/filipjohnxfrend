@@ -37,7 +37,7 @@ export async function getServerSideProps(context) {
   const result = await axios.get(
     "https://frend-ecom-api.azurewebsites.net/Category"
   );
-  console.log(result);
+
   const data = await result.data;
 
   const category = await data.find(

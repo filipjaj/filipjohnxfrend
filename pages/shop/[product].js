@@ -13,12 +13,12 @@ export default function ProductPage({ id }) {
   const { data, error, isLoading } = useGetProductByIdQuery(id);
   const [animate, setAnimate] = useState(false);
 
-  console.log(cart);
+ 
 
   const product = data;
   const dispatch = useDispatch();
   const [variant, setVariant] = useState(null);
-  console.log(product);
+
 
   const variantStock = (v, product) => {
     if (!v) {
@@ -50,7 +50,7 @@ export default function ProductPage({ id }) {
     setAnimate(true);
     setTimeout(() => {
       setAnimate(false);
-    }, 1500);
+    }, 600);
   };
   useEffect(() => {
     if (data) {
@@ -62,7 +62,7 @@ export default function ProductPage({ id }) {
     return <Loading />;
   }
 
-  console.log(variantStock(variant, product));
+  
 
   return (
     <>
@@ -146,7 +146,7 @@ export default function ProductPage({ id }) {
 
 export async function getServerSideProps(context) {
   const id = context.params.product;
-  console.log(id);
+ 
 
   return {
     props: {

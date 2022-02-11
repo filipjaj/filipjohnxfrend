@@ -1,14 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import Loading from "./Loading";
 
 const ProductCard = ({ product }) => {
   const router = useRouter();
-  return (
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = () => {
+    setLoading(true);
+    router.push(`/shop/${product.id}`);
+    setLoading(false);
+  };
+  return loading ? (
+    <Loading />
+  ) : (
     <div
       key={product.id}
       className="flex  content-center justify-center w-64 h-96   flex-col  "
-      onClick={() => router.push(`/shop/${product.id}`)}
+      onClick={handleClick}
     >
       <div className="w-64 h-80 relative overflow-hidden top-0 left-0 pb-5 rounded-md">
         <Image

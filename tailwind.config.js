@@ -34,9 +34,9 @@ module.exports = {
       },
       animation: {
         sendtocart:
-          "sendtocart 1s forwards cubic-bezier(1.000,0.440,0.840,0.165)",
+          "sendtocart 0.4s forwards cubic-bezier(1.000,0.440,0.840,0.165)",
         mobilecart:
-          "mobilecart 1s forwards cubic-bezier(1.000,0.440,0.840,0.165)",
+          "mobilecart 0.4s forwards cubic-bezier(1.000,0.440,0.840,0.165)",
       },
     },
   },
