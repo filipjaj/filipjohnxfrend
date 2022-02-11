@@ -41,7 +41,7 @@ const CartPage = () => {
               className="grid  gap-10 h-60  py-10 px-10 grid-flow-col rounded-md shadow-md w-fit relative odd:bg-fjpink-100 even:bg-fjblue text-lg"
             >
               <button
-                onClick={() => dispatch(removeFromCart(item.id))}
+                onClick={() => dispatch(removeFromCart(item.cartId))}
                 className="absolute top-3 right-3 font-semibold text-2xl"
               >
                 x
@@ -58,20 +58,21 @@ const CartPage = () => {
                 <p className="font-bold text-2xl">{item.name}</p>
                 <div className="grid grid-cols-3">
                   <button
-                    onClick={() => dispatch(decrementQuantity(item.id))}
+                    onClick={() => dispatch(decrementQuantity(item.cartId))}
                     className="font-semibold text-2xl"
                   >
                     -
                   </button>
                   <p className="text-center  text-2xl">{item.quantity}</p>
                   <button
-                    onClick={() => dispatch(incrementQuantity(item.id))}
+                    onClick={() => dispatch(incrementQuantity(item.cartId))}
                     className="font-semibold text-2xl"
                   >
                     +
                   </button>
                 </div>
                 <p className="italic">{item.variants.name}</p>
+
                 <div className="font-bold text-2xl"></div>
                 <p>{item.quantity * item.price} kr</p>
               </div>

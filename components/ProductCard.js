@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const ProductCard = ({ product }) => {
+  const router = useRouter();
   return (
     <div
       key={product.id}
       className="flex  content-center justify-center w-64 h-96   flex-col  "
+      onClick={() => router.push(`/shop/${product.id}`)}
     >
       <div className="w-64 h-80 relative overflow-hidden top-0 left-0 pb-5 rounded-md">
         <Image
@@ -20,12 +23,6 @@ const ProductCard = ({ product }) => {
         {product.name}{" "}
       </p>
       <p className="text-center font-fancy text-lg  z-20">{product.price} kr</p>
-
-      <Link href={`/shop/${product.id}`}>
-        <a className="text-white bg-black p-2 w-32 rounded-md self-center font-fancy font-normal text-center">
-          Kjøp nå!
-        </a>
-      </Link>
     </div>
   );
 };

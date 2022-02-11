@@ -11,7 +11,7 @@ const SearchBar = ({ search, setSearch }) => {
         type="search"
         value={search}
         onChange={handleSearch}
-        placeholder="Søk etter produkt"
+        placeholder={"Søk etter produkt"}
         className=" px-3 w-52 h-14 text-lg md:text-xl rounded-md border-2 border-fjblue"
       />
       <label

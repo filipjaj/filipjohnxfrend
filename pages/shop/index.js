@@ -3,7 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import Head from "next/head";
 import ProductGrid from "../../components/ProductGrid";
-import { useGetAllProductsQuery } from "../../services/product";
+import { useGetAllProductsQuery } from "../../redux/product";
 
 export default function Shop() {
   const { data, error, isLoading } = useGetAllProductsQuery();

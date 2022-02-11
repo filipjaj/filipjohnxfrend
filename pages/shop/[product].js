@@ -3,23 +3,42 @@ import axios from "axios";
 import Image from "next/image";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import Head from "next/head";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/cart.slice";
-import { useGetProductByIdQuery } from "../../services/product";
+import { useGetProductByIdQuery } from "../../redux/product";
 
 export default function ProductPage({ id }) {
+  const cart = useSelector((state) => state.cart);
   const { data, error, isLoading } = useGetProductByIdQuery(id);
+
+  console.log(cart);
 
   const product = data;
   const dispatch = useDispatch();
   const [variant, setVariant] = useState(null);
   console.log(product);
 
+  const variantStock = (v, product) => {
+    const cartItem = cart.find(
+      (item) => item.cartId === product.id.toString() + v.id.toString()
+    );
+
+    return cartItem
+      ? cartItem.variants.stock > 0
+        ? cartItem.variants.stock
+        : "Utsolgt"
+      : v
+      ? v.stock > 0
+        ? v.stock
+        : "Utsolgt"
+      : "Lagerstatus ukjent";
+  };
+
   const handleAddToCart = (product) => {
     let newProduct = {
       ...product,
       variants: variant,
-      id: product.id.toString() + variant.id.toString(),
+      cartId: product.id.toString() + variant.id.toString(),
     };
     dispatch(addToCart(newProduct));
   };
@@ -33,7 +52,7 @@ export default function ProductPage({ id }) {
     return <p>Loading....</p>;
   }
 
-  console.log(variant);
+  console.log(variantStock(variant, product));
 
   return (
     <>
@@ -65,8 +84,9 @@ export default function ProductPage({ id }) {
 
           <div className="md:col-span-3 grid content-center justify-center md:py-auto py-10 px-20 bg-fjbeige md:min-h-screen h-full ">
             <button
-              className="text-xl font-medium order-first md:order-last md:mt-6  bg-fjblue justify-self-center md:justify-self-start  w-44  p-3 rounded-lg flex flex-row"
+              className="text-xl font-medium order-first md:order-last md:mt-6  bg-fjblue justify-self-center md:justify-self-start  w-44  p-3 rounded-lg flex flex-row disabled:bg-gray-300 disabled:text-gray-200 disabled:cursor-not-allowed "
               onClick={() => handleAddToCart(product)}
+              disabled={variantStock(variant, product) == "Utsolgt"}
             >
               <MdOutlineShoppingBasket className="w-7 h-7 mr-3" />
               Add to Cart
@@ -76,20 +96,25 @@ export default function ProductPage({ id }) {
                 Varianter:
               </p>
               {product.variants.map((v) => (
-                <button
-                  onClick={() => setVariant(v)}
-                  key={v.name}
-                  className={
-                    "font-fancy rounded-md  text-lg " +
-                    (variant
-                      ? v.name === variant.name
-                        ? "font-bold"
-                        : ""
-                      : "")
-                  }
-                >
-                  {v.name}
-                </button>
+                <div className="grid grid-flow-row justify-center content-center">
+                  <button
+                    onClick={() => setVariant(v)}
+                    key={v.name}
+                    className={
+                      "font-fancy rounded-md  text-lg " +
+                      (variant
+                        ? v.name === variant.name
+                          ? "font-bold"
+                          : ""
+                        : "")
+                    }
+                  >
+                    {v.name}
+                  </button>
+                  <p className="text-sm text-center">
+                    {variantStock(v, product)}
+                  </p>
+                </div>
               ))}
             </div>
             <p className="font-fancy text-lg">{product.description}</p>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import ProductGrid from "../../../components/ProductGrid";
-import { useGetAllProductsQuery } from "../../../services/product";
+import { useGetAllProductsQuery } from "../../../redux/product";
 
 export default function Category({ category }) {
   let { data, error, isLoading } = useGetAllProductsQuery();

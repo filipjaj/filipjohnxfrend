@@ -67,7 +67,7 @@ const Navbar = () => {
 
       <div
         className={
-          "md:flex md:flex-row  grid grid-flow-row gap-5 content-start col-span-1 justify-self-end font-fancy font-medium md:static absolute md:h-fit right-0 top-16 h-screen md:bg-transparent bg-fjpink-100 px-10 overflow-hidden" +
+          "md:flex md:flex-row  grid grid-flow-row gap-5 content-start col-span-1 justify-self-end font-fancy font-medium md:static absolute md:h-fit right-0 top-16 h-screen md:bg-transparent bg-fjpink-100 px-10 overflow-hidden md:overflow-visible" +
           (menu ? " flex  absolute" : " hidden ")
         }
       >
