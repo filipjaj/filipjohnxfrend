@@ -4,12 +4,13 @@ import Image from "next/image";
 import Head from "next/head";
 import ProductGrid from "../../components/ProductGrid";
 import { useGetAllProductsQuery } from "../../redux/product";
+import Loading from "../../components/Loading";
 
 export default function Shop() {
   const { data, error, isLoading } = useGetAllProductsQuery();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return (

@@ -6,10 +6,12 @@ import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/cart.slice";
 import { useGetProductByIdQuery } from "../../redux/product";
+import Loading from "../../components/Loading";
 
 export default function ProductPage({ id }) {
   const cart = useSelector((state) => state.cart);
   const { data, error, isLoading } = useGetProductByIdQuery(id);
+  const [animate, setAnimate] = useState(false);
 
   console.log(cart);
 
@@ -19,6 +21,10 @@ export default function ProductPage({ id }) {
   console.log(product);
 
   const variantStock = (v, product) => {
+    if (!v) {
+      return "Lagerstatus ukjent";
+    }
+
     const cartItem = cart.find(
       (item) => item.cartId === product.id.toString() + v.id.toString()
     );
@@ -41,6 +47,10 @@ export default function ProductPage({ id }) {
       cartId: product.id.toString() + variant.id.toString(),
     };
     dispatch(addToCart(newProduct));
+    setAnimate(true);
+    setTimeout(() => {
+      setAnimate(false);
+    }, 1500);
   };
   useEffect(() => {
     if (data) {
@@ -49,7 +59,7 @@ export default function ProductPage({ id }) {
   }, [isLoading]);
 
   if (isLoading) {
-    return <p>Loading....</p>;
+    return <Loading />;
   }
 
   console.log(variantStock(variant, product));
@@ -88,9 +98,17 @@ export default function ProductPage({ id }) {
               onClick={() => handleAddToCart(product)}
               disabled={variantStock(variant, product) == "Utsolgt"}
             >
-              <MdOutlineShoppingBasket className="w-7 h-7 mr-3" />
+              <MdOutlineShoppingBasket
+                className={
+                  "w-7 h-7 mr-3 " +
+                  (animate
+                    ? " md:animate-sendtocart animate-mobilecart bg-fjblue text-black rounded-full"
+                    : "")
+                }
+              />
               Add to Cart
             </button>
+
             <div className="grid grid-flow-col gap-10 content-start justify-start my-7">
               <p className="font-fancy text-lg italic font-medium">
                 Varianter:

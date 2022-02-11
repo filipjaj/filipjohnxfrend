@@ -8,6 +8,7 @@ import {
   decrementQuantity,
   removeFromCart,
 } from "../redux/cart.slice";
+import Button from "../components/Button";
 
 const CartPage = () => {
   // Extracting cart state from redux store
@@ -27,63 +28,68 @@ const CartPage = () => {
   return (
     <div className=" mt-20 h-full min-h-screen">
       {cart.length === 0 ? (
-        <Title
-          text="
-          Handlekurver en tom!
-        "
-        />
+        <Title> Handlekurver en tom! </Title>
       ) : (
-        <div className="grid content-center justify-center font-fancy  gap-5">
-          <Title text="Handlekurv" />
-          {cart.map((item) => (
-            <div
-              key={item.id}
-              className="grid  gap-10 h-60  py-10 px-10 grid-flow-col rounded-md shadow-md w-fit relative odd:bg-fjpink-100 even:bg-fjblue text-lg"
-            >
-              <button
-                onClick={() => dispatch(removeFromCart(item.cartId))}
-                className="absolute top-3 right-3 font-semibold text-2xl"
+        <>
+          <Title className="pb-10"> Handlekurv </Title>
+          <div className="grid content-center justify-center font-fancy  gap-5">
+            {cart.map((item) => (
+              <div
+                key={item.id}
+                className="grid group  gap-10 min-h-60 h-fit  py-10 px-10 grid-flow-col rounded-md shadow-md w-fit relative "
               >
-                x
-              </button>
-
-              <Image
-                src={item.variants.image}
-                alt=""
-                width={130}
-                height={100}
-              />
-
-              <div className="grid  content-center justify-center">
-                <p className="font-bold text-2xl">{item.name}</p>
-                <div className="grid grid-cols-3">
-                  <button
-                    onClick={() => dispatch(decrementQuantity(item.cartId))}
-                    className="font-semibold text-2xl"
-                  >
-                    -
-                  </button>
-                  <p className="text-center  text-2xl">{item.quantity}</p>
-                  <button
-                    onClick={() => dispatch(incrementQuantity(item.cartId))}
-                    className="font-semibold text-2xl"
-                  >
-                    +
-                  </button>
+                <div className="group-even:bg-fjpink-200 group-odd:bg-fjblue w-14 absolute top-0 left-0 h-full"></div>
+                <div className="bg-fjbeige w-7/12 absolute top-0 right-0 h-full z-10"></div>
+                <button
+                  onClick={() => dispatch(removeFromCart(item.cartId))}
+                  className="absolute top-3 right-3 font-semibold text-2xl z-30"
+                >
+                  x
+                </button>
+                <div className="w-fit h-fit self-center z-30">
+                  <Image
+                    src={item.variants.image}
+                    alt=""
+                    width={152}
+                    height={200}
+                  />
                 </div>
-                <p className="italic">{item.variants.name}</p>
 
-                <div className="font-bold text-2xl"></div>
-                <p>{item.quantity * item.price} kr</p>
+                <div className="grid  content-center justify-center z-30">
+                  <p className="font-bold text-2xl">{item.name}</p>
+                  <div className="grid grid-cols-3">
+                    <button
+                      onClick={() => dispatch(decrementQuantity(item.cartId))}
+                      className="font-semibold text-2xl"
+                    >
+                      -
+                    </button>
+                    <p className="text-center  text-2xl">{item.quantity}</p>
+                    <button
+                      onClick={() => dispatch(incrementQuantity(item.cartId))}
+                      className="font-semibold text-2xl"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <p className="italic">{item.variants.name}</p>
+
+                  <div className="font-bold text-2xl"></div>
+                  <p>{item.quantity * item.price} kr</p>
+                </div>
               </div>
-            </div>
-          ))}
-          <h2 className="text-center text-3xl">
-            Total sum: {getTotalPrice()} kr
-          </h2>
+            ))}
+            <div className="w-full grid content-center justify-center gap-5 ">
+              <h2 className="text-center text-3xl">
+                Total sum: {getTotalPrice()} kr
+              </h2>
 
-          <button onClick={() => createCheckOutSession(cart)}>Checkout</button>
-        </div>
+              <Button onClick={() => createCheckOutSession(cart)}>
+                Checkout
+              </Button>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

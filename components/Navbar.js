@@ -12,15 +12,26 @@ const Navbar = () => {
   // Selecting cart from global state
   const cart = useSelector((state) => state.cart);
   const router = useRouter();
+  const [animate, setAnimate] = useState(false);
 
   const menuClick = () => {
     setMenu(false);
   };
 
-  // Getting the count of items
   const getItemsCount = () => {
     return cart.reduce((accumulator, item) => accumulator + item.quantity, 0);
   };
+
+  useEffect(() => {
+    if (getItemsCount() !== 0) {
+      setTimeout(() => {
+        setAnimate(true);
+      }, 1000);
+      setTimeout(() => {
+        setAnimate(false);
+      }, 1500);
+    }
+  }, [cart]);
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
@@ -42,7 +53,12 @@ const Navbar = () => {
             {" "}
             {getItemsCount()}{" "}
           </p>
-          <MdOutlineShoppingBasket className=" w-10 h-10 z-50  flex md:hidden " />
+          <MdOutlineShoppingBasket
+            className={
+              " w-10 h-10 z-50  flex md:hidden " +
+              (animate ? " animate-bounce" : "")
+            }
+          />
         </div>
       </Link>
       <Link href="/">
@@ -105,7 +121,10 @@ const Navbar = () => {
           </div>
           <Link href="/cart">
             <a
-              className="md:hover:text-fjpink-200 font-bold text-2xl md:text-lg"
+              className={
+                "md:hover:text-fjpink-200 font-bold text-2xl md:text-lg " +
+                (animate ? " animate-bounce" : "")
+              }
               onClick={menuClick}
             >
               {" "}

@@ -5,12 +5,13 @@ import Head from "next/head";
 import Link from "next/link";
 import ProductGrid from "../../../components/ProductGrid";
 import { useGetAllProductsQuery } from "../../../redux/product";
+import Loading from "../../../components/Loading";
 
 export default function Category({ category }) {
   let { data, error, isLoading } = useGetAllProductsQuery();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   const products = data.filter((product) =>
