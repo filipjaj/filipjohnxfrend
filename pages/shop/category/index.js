@@ -4,18 +4,7 @@ import axios from "axios";
 import Title from "../../../components/Title";
 import Categories from "../../../components/Categories";
 
-const CategoryIndex = () => {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    async function fetchCategories() {
-      const result = await axios(
-        "https://frend-ecom-api.azurewebsites.net/Category"
-      );
-      setCategories(result.data);
-    }
-    fetchCategories();
-  }, []);
-
+const CategoryIndex = ({ categories }) => {
   return (
     <div className="grid content-center justify-center  w-screen h-screen ">
       <Title>Kategorier</Title>
@@ -25,3 +14,18 @@ const CategoryIndex = () => {
 };
 
 export default CategoryIndex;
+
+export async function getStaticProps(context) {
+  const categoryResult = await axios(
+    "https://frend-ecom-api.azurewebsites.net/Category"
+  );
+
+  const categories = categoryResult.data;
+
+  return {
+    props: {
+      categories,
+    }, // will be passed to the page component as props
+    revalidate: 60,
+  };
+}

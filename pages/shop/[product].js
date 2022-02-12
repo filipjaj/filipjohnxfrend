@@ -7,35 +7,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/cart.slice";
 import { useGetProductByIdQuery } from "../../redux/product";
 import Loading from "../../components/Loading";
+import getStock from "../../services/getStock";
 
 export default function ProductPage({ id }) {
   const cart = useSelector((state) => state.cart);
   const { data, error, isLoading } = useGetProductByIdQuery(id);
   const [animate, setAnimate] = useState(false);
-
+  const [imageFallback, setImageFallback] = useState(false);
   const product = data;
   const dispatch = useDispatch();
   const [variant, setVariant] = useState(null);
-
-  const variantStock = (v, product) => {
-    if (!v) {
-      return "Lagerstatus ukjent";
-    }
-
-    const cartItem = cart.find(
-      (item) => item.cartId === product.id.toString() + v.id.toString()
-    );
-
-    return cartItem
-      ? cartItem.variants.stock > 0
-        ? cartItem.variants.stock
-        : "Utsolgt"
-      : v
-      ? v.stock > 0
-        ? v.stock
-        : "Utsolgt"
-      : "Lagerstatus ukjent";
-  };
 
   const handleAddToCart = (product) => {
     let newProduct = {
@@ -49,6 +30,12 @@ export default function ProductPage({ id }) {
       setAnimate(false);
     }, 600);
   };
+
+  const handleVariantChange = (variant) => {
+    setVariant(variant);
+    setImageFallback(false);
+  };
+
   useEffect(() => {
     if (data) {
       setVariant(product.variants[0]);
@@ -78,13 +65,19 @@ export default function ProductPage({ id }) {
             {}
             <div className="md:w-full w-72  h-auto overflow-visible self-center">
               <Image
-                src={variant ? variant.image : product.variants[0].image}
+                src={
+                  imageFallback
+                    ? "/bilde mangler.png"
+                    : variant
+                    ? variant.image
+                    : "/bilde mangler.png"
+                }
                 width={760}
                 height={1000}
                 alt=""
+                onError={() => setImageFallback(true)}
                 className="shadow-lg"
                 placeholder="blur"
-                priority
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN89OjBfwAI9wOlwldnxgAAAABJRU5ErkJggg=="
               />
             </div>
@@ -94,7 +87,7 @@ export default function ProductPage({ id }) {
             <button
               className="text-xl font-medium order-first md:order-last md:mt-6  bg-fjblue justify-self-center md:justify-self-start  w-44  p-3 rounded-lg flex flex-row disabled:bg-gray-300 disabled:text-gray-200 disabled:cursor-not-allowed "
               onClick={() => handleAddToCart(product)}
-              disabled={variantStock(variant, product) == "Utsolgt"}
+              disabled={getStock(variant, product, cart) == "Utsolgt"}
             >
               <MdOutlineShoppingBasket
                 className={
@@ -117,7 +110,7 @@ export default function ProductPage({ id }) {
                   key={v.name}
                 >
                   <button
-                    onClick={() => setVariant(v)}
+                    onClick={() => handleVariantChange(v)}
                     className={
                       "font-fancy rounded-md  text-lg " +
                       (variant
@@ -130,7 +123,7 @@ export default function ProductPage({ id }) {
                     {v.name}
                   </button>
                   <p className="text-sm text-center">
-                    {variantStock(v, product)}
+                    {getStock(variant, product, cart)}
                   </p>
                 </div>
               ))}

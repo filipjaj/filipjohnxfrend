@@ -33,7 +33,7 @@ export default function Category({ category }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const categoryName = context.params.category;
 
   const result = await axios.get(
