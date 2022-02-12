@@ -27,8 +27,12 @@ const CartPage = () => {
     );
   };
 
+  if (process.env.NODE_ENV !== "production") {
+    console.log(cart);
+  }
+
   return (
-    <div className=" mt-20 h-full min-h-screen">
+    <div className="  h-full min-h-screen py-10">
       {cart.length === 0 ? (
         <Title> Handlekurver en tom! </Title>
       ) : (
@@ -37,7 +41,7 @@ const CartPage = () => {
           <div className="grid content-center justify-center font-fancy  gap-5">
             {cart.map((item) => (
               <div
-                key={item.id}
+                key={item.cartId}
                 className="grid group  gap-10 min-h-60 h-fit  py-10 px-10 grid-flow-col rounded-md shadow-md  w-80 relative "
               >
                 <div className="group-even:bg-fjpink-200 group-odd:bg-fjblue w-14 absolute top-0 left-0 h-full"></div>
