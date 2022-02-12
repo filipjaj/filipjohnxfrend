@@ -8,32 +8,14 @@ import RollingText from "../components/RollingText";
 import axios from "axios";
 import Title from "../components/Title";
 import { useRouter } from "next/router";
+import Categories from "../components/Categories";
 
 export default function Home({ products, categories }) {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const findCategoryImage = (id) => {
-    const categoryProducts = products.filter((product) =>
-      product.categoryId.includes(id)
-    );
-
-    return categoryProducts[1]
-      ? categoryProducts[1].variants[0].image
-      : categoryProducts[0].variants[0].image;
-  };
-
   return (
     <div>
-      <Head>
-        <title>Filip John x Frend</title>
-        <meta name="description" content="Største samarbeidet siden YEEZY" />
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://use.typekit.net/oom6bmf.css"
-        ></link>
-      </Head>
       <div className="w-screen h-full overflow-hidden">
         <div className="grid content-center justify-center md:grid-cols-5 ">
           <div className="flex flex-col md:col-span-3 content-center justify-center">
@@ -44,27 +26,7 @@ export default function Home({ products, categories }) {
               <h2 className="font-bold text-3xl text-black font-fancy  py-12 h-fit text-center self-center">
                 Kategorier
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 w-fit  gap-10  md:h-full h-min content-center m-auto justify-center my-14">
-                {categories.map((c) => (
-                  <div
-                    className="flex flex-col w-40  h-72 content-center justify-center  "
-                    key={c.id}
-                    onClick={() => router.push(`/shop/category/${c.name}`)}
-                  >
-                    <h3 className="text-3xl text-black font-fancy pb-5 ">
-                      {c.name}
-                    </h3>
-                    <div className=" relative  w-40  h-64 ">
-                      <Image
-                        layout="fill"
-                        objectFit="cover"
-                        alt=""
-                        src={findCategoryImage(c.id)}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Categories categories={categories} />
             </div>
           </div>
 
