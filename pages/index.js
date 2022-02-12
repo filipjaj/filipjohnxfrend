@@ -33,7 +33,7 @@ export default function Home({ products, categories }) {
           <div className=" bg-fjbeige col-span-2 min-h-screen  flex content-center justify-center relative">
             <RollingText text="Filip John x Frend" />
 
-            <div className=" lg:w-2/5 md:w-3/5  w-64 lg:h-3/5 md:h-2/5 h-2/5 overflow-visible relative self-center">
+            <div className=" lg:w-2/5 md:w-3/5  w-64 lg:h-3/5 md:h-2/5 h-3/5 overflow-visible relative self-center">
               <Image
                 src={
                   products
