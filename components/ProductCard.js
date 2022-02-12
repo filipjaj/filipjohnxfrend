@@ -28,6 +28,8 @@ const ProductCard = ({ product }) => {
           alt=""
           objectFit="cover"
           className="z-10"
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN89OjBfwAI9wOlwldnxgAAAABJRU5ErkJggg=="
         />
       </div>
       <p className="text-center font-fancy text-xl font-bold z-20">

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { MdInfoOutline } from "react-icons/md";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
+import RollingText from "../components/RollingText";
 
 import axios from "axios";
 import Title from "../components/Title";
@@ -39,11 +40,11 @@ export default function Home({ products, categories }) {
             <div className="w-full md:h-1/3 h-64 content-center justify-center grid">
               <Title> Filip John x Frend </Title>
             </div>
-            <div className=" p-10 bg-fjpink-100 md:w-full w-screen md:h-2/3 min-h-min content-center justify-center  flex flex-col overflow-scroll">
-              <h2 className="font-bold text-3xl text-black font-fancy  pb-12 text-center">
+            <div className=" py-32 pb-40 bg-fjpink-100 md:w-full w-screen md:h-2/3 min-h-max content-center justify-center  flex flex-col overflow-visible">
+              <h2 className="font-bold text-3xl text-black font-fancy  py-12 h-fit text-center self-center">
                 Kategorier
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 w-fit  gap-10  md:h-full h-min content-center m-auto justify-center">
+              <div className="grid grid-cols-2 md:grid-cols-3 w-fit  gap-10  md:h-full h-min content-center m-auto justify-center my-14">
                 {categories.map((c) => (
                   <div
                     className="flex flex-col w-40  h-72 content-center justify-center  "
@@ -68,54 +69,7 @@ export default function Home({ products, categories }) {
           </div>
 
           <div className=" bg-fjbeige col-span-2 min-h-screen  flex content-center justify-center relative">
-            <div className="absolute flex flex-col content-center justify-center w-full h-full top-0 left-0">
-              <div>
-                <Marquee
-                  gradient={false}
-                  className="font-fancy font-bold text-5xl "
-                >
-                  <p>
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend
-                  </p>
-                </Marquee>
-              </div>
-              <div>
-                <Marquee
-                  gradient={false}
-                  className="font-fancy font-bold text-5xl text-fjpink-200"
-                  speed={40}
-                >
-                  <p>
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend
-                  </p>
-                </Marquee>
-              </div>
-              <div>
-                <Marquee
-                  gradient={false}
-                  className="font-fancy font-bold text-5xl "
-                >
-                  <p>
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend Filip John x Frend Filip John x Frend
-                    Filip John x Frend
-                  </p>
-                </Marquee>
-              </div>
-            </div>
+            <RollingText text="Filip John x Frend" />
 
             <div className=" lg:w-2/5 md:w-3/5  w-64 lg:h-3/5 md:h-2/5 h-2/5 overflow-visible relative self-center">
               <Image

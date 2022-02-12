@@ -83,7 +83,9 @@ export default function ProductPage({ id }) {
                 height={1000}
                 alt=""
                 className="shadow-lg"
-                prefetch
+                placeholder="blur"
+                priority
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN89OjBfwAI9wOlwldnxgAAAABJRU5ErkJggg=="
               />
             </div>
           </div>

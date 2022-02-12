@@ -10,6 +10,7 @@ import {
 } from "../redux/cart.slice";
 import Button from "../components/Button";
 import { useRouter } from "next/router";
+import RollingText from "../components/RollingText";
 
 const CartPage = () => {
   // Extracting cart state from redux store
@@ -36,16 +37,18 @@ const CartPage = () => {
       {cart.length === 0 ? (
         <Title> Handlekurver en tom! </Title>
       ) : (
-        <>
-          <Title className="pb-10"> Handlekurv </Title>
-          <div className="grid content-center justify-center font-fancy  gap-5">
+        <div className="bg-white">
+          <RollingText text="Handlekurv" />
+
+          <div className="grid content-center justify-center font-fancy  gap-5 bg-white z-20 px-5 w-full ">
+            <Title className="pb-10"> Handlekurv </Title>
             {cart.map((item) => (
               <div
                 key={item.cartId}
-                className="grid group  gap-10 min-h-60 h-fit  py-10 px-10 grid-flow-col rounded-md shadow-md  w-80 relative "
+                className="grid group  gap-10 min-h-60 h-fit  py-10 px-10 grid-flow-col rounded-md shadow-md  w-80 relative bg-white "
               >
                 <div className="group-even:bg-fjpink-200 group-odd:bg-fjblue w-14 absolute top-0 left-0 h-full"></div>
-                <div className="bg-fjbeige w-7/12 absolute top-0 right-0 h-full z-10"></div>
+                <div className="bg-fjbeige w-7/12 absolute top-0 right-0 h-full z-20"></div>
                 <button
                   onClick={() => dispatch(removeFromCart(item.cartId))}
                   className="absolute top-3 right-3 font-semibold text-2xl z-30"
@@ -98,7 +101,7 @@ const CartPage = () => {
               </Button>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

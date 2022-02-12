@@ -6,6 +6,7 @@ import Link from "next/link";
 import ProductGrid from "../../../components/ProductGrid";
 import { useGetAllProductsQuery } from "../../../redux/product";
 import Loading from "../../../components/Loading";
+import RollingText from "../../../components/RollingText";
 
 export default function Category({ category }) {
   let { data, error, isLoading } = useGetAllProductsQuery();
@@ -27,6 +28,7 @@ export default function Category({ category }) {
         ></link>
       </Head>
       <ProductGrid data={products} title={category.name} />
+      <RollingText text={category.name} />
     </div>
   );
 }
