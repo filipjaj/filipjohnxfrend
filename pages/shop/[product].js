@@ -13,12 +13,9 @@ export default function ProductPage({ id }) {
   const { data, error, isLoading } = useGetProductByIdQuery(id);
   const [animate, setAnimate] = useState(false);
 
- 
-
   const product = data;
   const dispatch = useDispatch();
   const [variant, setVariant] = useState(null);
-
 
   const variantStock = (v, product) => {
     if (!v) {
@@ -62,8 +59,6 @@ export default function ProductPage({ id }) {
     return <Loading />;
   }
 
-  
-
   return (
     <>
       <Head>
@@ -88,6 +83,7 @@ export default function ProductPage({ id }) {
                 height={1000}
                 alt=""
                 className="shadow-lg"
+                prefetch
               />
             </div>
           </div>
@@ -114,10 +110,12 @@ export default function ProductPage({ id }) {
                 Varianter:
               </p>
               {product.variants.map((v) => (
-                <div className="grid grid-flow-row justify-center content-center">
+                <div
+                  className="grid grid-flow-row justify-center content-center"
+                  key={v.name}
+                >
                   <button
                     onClick={() => setVariant(v)}
-                    key={v.name}
                     className={
                       "font-fancy rounded-md  text-lg " +
                       (variant
@@ -146,7 +144,6 @@ export default function ProductPage({ id }) {
 
 export async function getServerSideProps(context) {
   const id = context.params.product;
- 
 
   return {
     props: {

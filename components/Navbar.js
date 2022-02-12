@@ -30,10 +30,10 @@ const Navbar = () => {
     if (getItemsCount() !== 0) {
       setTimeout(() => {
         setAnimate(true);
-      }, 1000);
+      }, 500);
       setTimeout(() => {
         setAnimate(false);
-      }, 1500);
+      }, 1000);
     }
   }, [cart]);
 
@@ -68,7 +68,10 @@ const Navbar = () => {
         </div>
       </Link>
       <Link href="/">
-        <a className="font-fancy font-bold text-2xl col-span-4 md:col-span-5 md:text-left  text-center px-3 md:self-start self-center"  onClick={menuClick}>
+        <a
+          className="font-fancy font-bold text-2xl col-span-4 md:col-span-5 md:text-left  text-center px-3 md:self-start self-center"
+          onClick={menuClick}
+        >
           Filip John x Frend
         </a>
       </Link>

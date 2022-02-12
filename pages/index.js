@@ -3,19 +3,25 @@ import Image from "next/image";
 import { MdInfoOutline } from "react-icons/md";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
-import { addToCart } from ".././redux/cart.slice";
-import { useState, useEffect } from "react";
+
 import axios from "axios";
 import Title from "../components/Title";
 import { useRouter } from "next/router";
 
-export default function Home({ products }) {
+export default function Home({ products, categories }) {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const CartAdd = (product) => {
-    dispatch(addToCart(product));
+  const findCategoryImage = (id) => {
+    const categoryProducts = products.filter((product) =>
+      product.categoryId.includes(id)
+    );
+
+    return categoryProducts[1]
+      ? categoryProducts[1].variants[0].image
+      : categoryProducts[0].variants[0].image;
   };
+
   return (
     <div>
       <Head>
@@ -33,25 +39,31 @@ export default function Home({ products }) {
             <div className="w-full md:h-1/3 h-64 content-center justify-center grid">
               <Title> Filip John x Frend </Title>
             </div>
-            <div className=" p-10 bg-fjpink-100 md:w-full w-screen md:h-2/3 min-h-min content-center justify-center grid">
-              <h2 className="font-fancy font-bold text-2xl ">
-                {" "}
-                Største collaben siden YEEZY
+            <div className=" p-10 bg-fjpink-100 md:w-full w-screen md:h-2/3 min-h-min content-center justify-center  flex flex-col overflow-scroll">
+              <h2 className="font-bold text-3xl text-black font-fancy  pb-12 text-center">
+                Kategorier
               </h2>
-              <p className="font-fancy ">
-                Parmesan hard cheese caerphilly. Port-salut parmesan melted
-                cheese gouda monterey jack cheese and wine the big cheese
-                camembert de normandie. Cheese and biscuits jarlsberg fondue
-                hard cheese who moved my cheese babybel cheesy feet rubber
-                cheese. Cottage cheese babybel manchego fondue say cheese the
-                big cheese boursin cottage cheese. Cheese and wine camembert de
-                normandie emmental stinking bishop. Camembert de normandie
-                cheese strings boursin. Bocconcini cheesecake cut the cheese
-                cream cheese queso port-salut macaroni cheese airedale. St. agur
-                blue cheese fromage frais cheese slices swiss monterey jack
-                cheese strings cheeseburger cheese and wine. Roquefort cheese
-                and biscuits.{" "}
-              </p>
+              <div className="grid grid-cols-2 md:grid-cols-3 w-fit  gap-10  md:h-full h-min content-center m-auto justify-center">
+                {categories.map((c) => (
+                  <div
+                    className="flex flex-col w-40  h-72 content-center justify-center  "
+                    key={c.id}
+                    onClick={() => router.push(`/shop/category/${c.name}`)}
+                  >
+                    <h3 className="text-3xl text-black font-fancy pb-5 ">
+                      {c.name}
+                    </h3>
+                    <div className=" relative  w-40  h-64 ">
+                      <Image
+                        layout="fill"
+                        objectFit="cover"
+                        alt=""
+                        src={findCategoryImage(c.id)}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -112,6 +124,7 @@ export default function Home({ products }) {
                     ? products[0].variants[0].image
                     : "/unisex-crew-neck-sweatshirt-white-front-61fe71c779091.png"
                 }
+                priority={true}
                 layout="fill"
                 objectFit="cover"
                 alt=""
@@ -128,7 +141,7 @@ export default function Home({ products }) {
               </button>
               <div className="absolute -top-20 left-0 z-40 text-3xl text-black font-fancy">
                 <h2 className=" font-bold "> {products[0].name}</h2>
-                <h2>{products[0].price} kr</h2>
+                <h3>{products[0].price} kr</h3>
               </div>
               <div className=" bg-fjgreen rounded-lg z-10 absolute bottom-0 h-3/4 w-full shadow-lg "></div>
             </div>
@@ -144,11 +157,17 @@ export async function getStaticProps(context) {
     "https://frend-ecom-api.azurewebsites.net/Product"
   );
 
+  const categoryResult = await axios(
+    "https://frend-ecom-api.azurewebsites.net/Category"
+  );
+
   const products = result.data;
+  const categories = categoryResult.data;
 
   return {
     props: {
       products,
+      categories,
     }, // will be passed to the page component as props
     revalidate: 60,
   };

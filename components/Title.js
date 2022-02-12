@@ -11,8 +11,4 @@ const Title = (props) => (
   </h1>
 );
 
-Title.propTypes = {
-  text: PropTypes.string.isRequired,
-};
-
 export default Title;

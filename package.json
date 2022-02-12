@@ -4,13 +4,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "lint": "next lint"
   },
   "dependencies": {
+    "@next/eslint-plugin-next": "^12.0.10",
     "@reduxjs/toolkit": "^1.7.2",
     "@stripe/stripe-js": "^1.22.0",
     "@types/react": "^17.0.39",
     "axios": "^0.25.0",
+    "eslint": "^8.9.0",
     "fuse.js": "^6.5.3",
     "next": "^12.0.8",
     "react": "17.0.2",
@@ -26,6 +29,8 @@
     "@testing-library/react": "^12.1.2",
     "autoprefixer": "^10.4.2",
     "deep-freeze": "^0.0.1",
+    "eslint-config-next": "12.0.10",
+    "eslint-config-prettier": "^8.3.0",
     "jest": "^27.5.0",
     "postcss": "^8.4.6",
     "prettier": "^2.5.1",
