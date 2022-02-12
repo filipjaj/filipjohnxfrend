@@ -38,8 +38,6 @@ const CartPage = () => {
         <Title> Handlekurver en tom! </Title>
       ) : (
         <div className="bg-white">
-          <RollingText text="Handlekurv" />
-
           <div className="grid content-center justify-center font-fancy  gap-5 bg-white z-20 px-5 w-full ">
             <Title className="pb-10"> Handlekurv </Title>
             {cart.map((item) => (
