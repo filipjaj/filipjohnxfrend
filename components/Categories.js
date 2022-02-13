@@ -31,7 +31,7 @@ export default function Categories({ categories }) {
             key={c.id}
             onClick={() => router.push(`/shop/category/${c.name}`)}
           >
-            <H3 className="pb-5 ">{c.name}</H3>
+            <H3 className="pb-5 text-center ">{c.name}</H3>
             <div className=" relative  w-40  h-64 ">
               <Image
                 layout="fill"

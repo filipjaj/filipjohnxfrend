@@ -21,8 +21,8 @@ export default function Home({ products, categories }) {
             <div className="w-full md:h-1/3 h-64 content-center justify-center grid">
               <Title> Filip John x Frend </Title>
             </div>
-            <div className=" py-32 pb-40 bg-fjpink-100 md:w-full w-screen md:h-2/3 min-h-max content-center justify-center  flex flex-col overflow-visible">
-              <h2 className="font-bold text-3xl text-black font-fancy  py-12 h-fit text-center self-center">
+            <div className=" md:py-32 md:pb-40 py-10 bg-fjpink-100 md:w-full w-screen md:h-2/3 min-h-max content-center justify-center  flex flex-col overflow-visible">
+              <h2 className="font-bold text-3xl text-black font-fancy  md:py-12 h-fit text-center self-center">
                 Categories
               </h2>
               <Categories categories={categories} />
@@ -32,7 +32,7 @@ export default function Home({ products, categories }) {
           <div className=" bg-fjbeige col-span-2 min-h-screen  flex content-center justify-center relative">
             <RollingText text="Filip John x Frend" />
 
-            <div className=" xl:w-2/5 md:w-3/5  w-64  md:h-2/5 h-3/5 overflow-visible relative self-center min-h-fit">
+            <div className=" xl:w-2/5 md:w-3/5  w-64  md:h-2/5 h-3/5  overflow-visible relative self-center min-h-fit">
               <Image
                 src={
                   products
