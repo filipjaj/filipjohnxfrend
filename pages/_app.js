@@ -5,6 +5,7 @@ import Head from "next/head";
 import Navbar from "../components/Navbar";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import NextNProgress from "nextjs-progressbar";
 
 function MyApp({ Component, pageProps }) {
   let persistor = persistStore(store);
@@ -21,6 +22,12 @@ function MyApp({ Component, pageProps }) {
           ></link>
         </Head>
         <div className="relative ">
+          <NextNProgress
+            color="#F4B7E9"
+            startPosition={0.3}
+            stopDelayMs={200}
+            height={6}
+          />
           <Navbar />
           <Component {...pageProps} className="z-40 relative" />
         </div>
