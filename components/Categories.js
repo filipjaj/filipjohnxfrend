@@ -2,6 +2,7 @@ import Image from "next/image";
 import Loading from "./Loading";
 import { useGetAllProductsQuery } from "../redux/product";
 import { useRouter } from "next/router";
+import H3 from "./H3";
 
 export default function Categories({ categories }) {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function Categories({ categories }) {
             key={c.id}
             onClick={() => router.push(`/shop/category/${c.name}`)}
           >
-            <h3 className="text-3xl text-black font-fancy pb-5 ">{c.name}</h3>
+            <H3 className="pb-5 ">{c.name}</H3>
             <div className=" relative  w-40  h-64 ">
               <Image
                 layout="fill"

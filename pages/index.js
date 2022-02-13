@@ -9,6 +9,7 @@ import axios from "axios";
 import Title from "../components/Title";
 import { useRouter } from "next/router";
 import Categories from "../components/Categories";
+import H3 from "../components/H3";
 
 export default function Home({ products, categories }) {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function Home({ products, categories }) {
           <div className=" bg-fjbeige col-span-2 min-h-screen  flex content-center justify-center relative">
             <RollingText text="Filip John x Frend" />
 
-            <div className=" lg:w-2/5 md:w-3/5  w-64  md:h-2/5 h-3/5 overflow-visible relative self-center">
+            <div className=" xl:w-2/5 md:w-3/5  w-64  md:h-2/5 h-3/5 overflow-visible relative self-center min-h-fit">
               <Image
                 src={
                   products
@@ -56,9 +57,9 @@ export default function Home({ products, categories }) {
                   aria-label="product info"
                 />
               </button>
-              <div className="absolute -top-20 left-0 z-40 text-3xl text-black font-fancy">
-                <h2 className=" font-bold "> {products[0].name}</h2>
-                <h3>{products[0].price} kr</h3>
+              <div className="absolute -top-20 left-0 z-40 text-3xl text-black font-fancy min-w-content w-full">
+                <H3 className=" font-bold w-full"> {products[0].name}</H3>
+                <H3>{products[0].price} kr</H3>
               </div>
               <div className=" bg-fjgreen rounded-lg z-10 absolute bottom-0 h-3/4 w-full shadow-lg "></div>
             </div>
