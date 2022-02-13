@@ -84,7 +84,7 @@ export default function ProductPage({ id }) {
             <button
               className="text-xl font-medium order-first md:order-last md:mt-6  bg-fjblue justify-self-center md:justify-self-start  w-44  p-3 rounded-lg flex flex-row disabled:bg-gray-300 disabled:text-gray-200 disabled:cursor-not-allowed "
               onClick={() => handleAddToCart(product)}
-              disabled={getStock(variant, product, cart) == "Utsolgt"}
+              disabled={getStock(variant, product, cart) == "Sold Out"}
             >
               <MdOutlineShoppingBasket
                 className={

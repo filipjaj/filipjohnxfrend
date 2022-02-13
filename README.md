@@ -12,6 +12,6 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Enviroment Variables
+## Environment Variables
 
-For this project to work you need the Enviroment Variables `STRIPE_SECRET_KEY` and `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` (https://dashboard.stripe.com/account/apikeys)
+For this project to work you need the Environment variable `STRIPE_SECRET_KEY` and `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` (https://dashboard.stripe.com/account/apikeys)
