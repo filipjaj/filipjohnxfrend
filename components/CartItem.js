@@ -1,13 +1,15 @@
 import Image from "next/image";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   incrementQuantity,
   decrementQuantity,
   removeFromCart,
 } from "../redux/cart.slice";
 import { useRouter } from "next/router";
+import getStock from "../services/getStock";
 
 export default function CartItem({ item }) {
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -53,7 +55,8 @@ export default function CartItem({ item }) {
           <p className="text-center  text-2xl">{item.quantity}</p>
           <button
             onClick={() => dispatch(incrementQuantity(item.cartId))}
-            className="font-semibold text-2xl"
+            className="font-semibold text-2xl  disabled:text-gray-300 disabled:cursor-not-allowed"
+            disabled={getStock(item.variants, item, cart) == "Utsolgt"}
           >
             +
           </button>
