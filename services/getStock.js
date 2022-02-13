@@ -1,6 +1,6 @@
 const getStock = (v, product, cart) => {
   if (!v) {
-    return "Lagerstatus ukjent";
+    return "Stock Unknown";
   }
 
   const cartItem = cart.find(
@@ -10,12 +10,12 @@ const getStock = (v, product, cart) => {
   return cartItem
     ? cartItem.variants.stock > 0
       ? cartItem.variants.stock
-      : "Utsolgt"
+      : "Sold Out"
     : v
     ? v.stock > 0
       ? v.stock
-      : "Utsolgt"
-    : "Lagerstatus ukjent";
+      : "Sold Out"
+    : "Stock Unknown";
 };
 
 export default getStock;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Image from "next/image";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import Head from "next/head";
@@ -47,14 +46,11 @@ export default function ProductPage({ id }) {
   if (!product) {
     return <Loading />;
   }
-  console.log(product);
+
   return (
     <>
       <Head>
-        <link
-          rel="stylesheet"
-          href="https://use.typekit.net/oom6bmf.css"
-        ></link>
+        <title key="title">{product.name}</title>
       </Head>
       <div className="w-screen h-full flex content-center justify-center flex-col relative min-h-screen overflow-hidden">
         <div className="w-1/12 bg-fjpink-100 h-full absolute top-0 left-0 z-10"></div>

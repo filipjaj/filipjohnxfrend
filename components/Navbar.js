@@ -12,7 +12,6 @@ const Navbar = () => {
   const [menu, setMenu] = useState(false);
   // Selecting cart from global state
   const cart = useSelector((state) => state.cart);
-  const router = useRouter();
   const [animate, setAnimate] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -26,6 +25,7 @@ const Navbar = () => {
     return cart.reduce((accumulator, item) => accumulator + item.quantity, 0);
   };
 
+  //Animates cart on change
   useEffect(() => {
     if (getItemsCount() !== 0) {
       setTimeout(() => {
@@ -35,7 +35,7 @@ const Navbar = () => {
         setAnimate(false);
       }, 1000);
     }
-  }, [cart]);
+  }, [cart]); // eslint-disable-line
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
@@ -53,7 +53,7 @@ const Navbar = () => {
     <Loading />
   ) : (
     <nav className="grid grid-cols-6 md:px-8 md:py-7 sticky top-0 left-0 z-50 bg-fjblue shadow-fjbeige  shadow-sm justify-center  w-screen ">
-      <Link href="/cart">
+      <Link href="/cart" passHref>
         <div className="col-span-1 self-center justify-self-center flex flex-row content-center justify-center md:hidden">
           <p className="pl-1 self-end font-bold font-fancy text-lg">
             {" "}

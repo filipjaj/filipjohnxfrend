@@ -1,13 +1,9 @@
-import Image from "next/image";
 import createCheckOutSession from "../services/createCheckoutSession";
-// Importing hooks from react-redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Title from "../components/Title";
-
 import Button from "../components/Button";
-import { useRouter } from "next/router";
-import RollingText from "../components/RollingText";
 import CartItem from "../components/CartItem";
+import Head from "next/head";
 
 const CartPage = () => {
   // Extracting cart state from redux store
@@ -28,18 +24,21 @@ const CartPage = () => {
 
   return (
     <div className="  h-full min-h-screen py-10">
+      <Head>
+        <title key="title">Shopping cart</title>
+      </Head>
       {cart.length === 0 ? (
-        <Title> Handlekurver en tom! </Title>
+        <Title> Your cart is empty! </Title>
       ) : (
         <div className="bg-white">
           <div className="grid content-center justify-center font-fancy  gap-5 bg-white z-20 px-5 w-full ">
-            <Title className="pb-10"> Handlekurv </Title>
+            <Title className="pb-10"> Shopping cart </Title>
             {cart.map((item) => (
               <CartItem key={item.cartId} item={item} />
             ))}
             <div className="w-full grid content-center justify-center gap-5 ">
               <h2 className="text-center text-3xl">
-                Total sum: {getTotalPrice()} kr
+                Total: {getTotalPrice()} kr
               </h2>
 
               <Button onClick={() => createCheckOutSession(cart)}>

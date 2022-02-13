@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Head>
-          <title>Filip John x Frend</title>
+          <title key="title">Filip John x Frend</title>
           <meta name="description" content="Største samarbeidet siden YEEZY" />
           <link rel="icon" href="/favicon.ico" />
           <link

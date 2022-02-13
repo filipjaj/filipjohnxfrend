@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { useState, useEffect } from "react";
 import axios from "axios";
 import Title from "../../../components/Title";
 import Categories from "../../../components/Categories";
@@ -7,7 +5,7 @@ import Categories from "../../../components/Categories";
 const CategoryIndex = ({ categories }) => {
   return (
     <div className="grid content-center justify-center  w-screen h-screen ">
-      <Title>Kategorier</Title>
+      <Title>Categories</Title>
       <Categories categories={categories} />
     </div>
   );

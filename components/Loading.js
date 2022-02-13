@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Title from "./Title";
 
 export default function Loading() {

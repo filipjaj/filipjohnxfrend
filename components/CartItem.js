@@ -56,7 +56,7 @@ export default function CartItem({ item }) {
           <button
             onClick={() => dispatch(incrementQuantity(item.cartId))}
             className="font-semibold text-2xl  disabled:text-gray-300 disabled:cursor-not-allowed"
-            disabled={getStock(item.variants, item, cart) == "Utsolgt"}
+            disabled={getStock(item.variants, item, cart) == "Sold Out"}
           >
             +
           </button>

@@ -1,7 +1,5 @@
-import Head from "next/head";
 import Image from "next/image";
 import { MdInfoOutline } from "react-icons/md";
-import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import RollingText from "../components/RollingText";
 
@@ -25,7 +23,7 @@ export default function Home({ products, categories }) {
             </div>
             <div className=" py-32 pb-40 bg-fjpink-100 md:w-full w-screen md:h-2/3 min-h-max content-center justify-center  flex flex-col overflow-visible">
               <h2 className="font-bold text-3xl text-black font-fancy  py-12 h-fit text-center self-center">
-                Kategorier
+                Categories
               </h2>
               <Categories categories={categories} />
             </div>
