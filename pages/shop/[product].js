@@ -11,14 +11,16 @@ import getStock from "../../services/getStock";
 
 export default function ProductPage({ id }) {
   const cart = useSelector((state) => state.cart);
-  const { data, error, isLoading } = useGetProductByIdQuery(id);
+  const { data: product, refetch } = useGetProductByIdQuery(id);
+  console.log(product);
   const [animate, setAnimate] = useState(false);
   const [imageFallback, setImageFallback] = useState(false);
-  const product = data;
+
   const dispatch = useDispatch();
   const [variant, setVariant] = useState(null);
 
   const handleAddToCart = (product) => {
+    refetch();
     let newProduct = {
       ...product,
       variants: variant,
@@ -37,15 +39,15 @@ export default function ProductPage({ id }) {
   };
 
   useEffect(() => {
-    if (data) {
+    if (product) {
       setVariant(product.variants[0]);
     }
-  }, [isLoading]);
+  }, [product]);
 
-  if (isLoading) {
+  if (!product) {
     return <Loading />;
   }
-
+  console.log(product);
   return (
     <>
       <Head>
@@ -59,7 +61,6 @@ export default function ProductPage({ id }) {
         <div className="grid h-full w-screen grid-flow-row  justify-center md:grid-cols-5  z-20">
           <div className="md:col-span-2 md:m-20 m-auto flex md:flex-col flex-col content-center justify-center ">
             <h1 className=" font-fancy font-bold text-5xl md:mb-16 my-6 ">
-              {" "}
               {product.name}
             </h1>
             {}
@@ -107,7 +108,7 @@ export default function ProductPage({ id }) {
               {product.variants.map((v) => (
                 <div
                   className="grid grid-flow-row justify-center content-center"
-                  key={v.name}
+                  key={v.id}
                 >
                   <button
                     onClick={() => handleVariantChange(v)}
@@ -123,7 +124,7 @@ export default function ProductPage({ id }) {
                     {v.name}
                   </button>
                   <p className="text-sm text-center">
-                    {getStock(variant, product, cart)}
+                    {getStock(v, product, cart)}
                   </p>
                 </div>
               ))}

@@ -9,7 +9,7 @@ import Loading from "../../../components/Loading";
 import RollingText from "../../../components/RollingText";
 
 export default function Category({ category }) {
-  let { data, error, isLoading } = useGetAllProductsQuery();
+  let { data, error, isLoading } = useGetAllProductsQuery(); //RTK Query
 
   if (isLoading) {
     return <Loading />;
@@ -33,7 +33,7 @@ export default function Category({ category }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const categoryName = context.params.category;
 
   const result = await axios.get(

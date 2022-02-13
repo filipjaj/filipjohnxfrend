@@ -28,7 +28,9 @@ const cartSlice = createSlice({
     },
     incrementQuantity: (state, action) => {
       const item = state.find((item) => item.cartId === action.payload);
-      item.quantity++, item.variants.stock--;
+      if (item.variants.stock !== 0) {
+        item.quantity++, item.variants.stock--;
+      }
     },
     decrementQuantity: (state, action) => {
       const item = state.find((item) => item.cartId === action.payload);
