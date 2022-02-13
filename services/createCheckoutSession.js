@@ -17,6 +17,7 @@ const createCheckOutSession = async (items) => {
       },
       quantity: item.quantity,
       description: item.description,
+      id: item.id,
     };
   });
 
